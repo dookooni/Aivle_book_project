@@ -1,6 +1,8 @@
 // components/BookCard.jsx
 import { Card, CardMedia, CardContent, Typography, CardActionArea } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import PersonIcon from '@mui/icons-material/Person';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 function BookCard({ book }) {
   const nav = useNavigate();
@@ -27,10 +29,10 @@ function BookCard({ book }) {
       </Typography>
 
       <Typography variant="body2" color="text.secondary">
-        저자: {book.author}
+        <PersonIcon fontSize="small" /> 저자: {book.author}
       </Typography>
       <Typography variant="body2" color="text.secondary">
-        출판일: {book.createdAt?.slice(0, 10)}
+        <CalendarMonthIcon fontSize="small" /> 출판일: {book.createdAt?.slice(0, 10)}
       </Typography>
 
       <Typography

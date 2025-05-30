@@ -5,8 +5,9 @@ import BookCard from '../components/BookCard';
 
 import { useState, useEffect } from 'react';
 import { fetchBooks } from '../api/bookApi'; //axios 연결
+import { OpenAI } from 'openai';
 
-function Home({ books }) {
+function Home() {
   const nav = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
