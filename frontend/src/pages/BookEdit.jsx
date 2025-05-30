@@ -21,6 +21,11 @@ function BookEdit({ books, setBooks }) {
   const [content, setContent] = useState('');
   const [coverImage, setCoverImage] = useState('');
   const [loading, setLoading] = useState(false);
+  
+  const [author, setAuthor] = useState('');//저자
+  const [createdAt, setCreatedAt] = useState('');//출판일
+  const [updatedAt, setUpdatedAt] = useState('');//업데이트 날짜
+
 
   useEffect(() => {
     if (book) {
@@ -28,6 +33,8 @@ function BookEdit({ books, setBooks }) {
       setSummary(book.summary);
       setContent(book.content);
       setCoverImage(book.coverImage?.image_url || '');
+      setCreatedAt(book.createdAt?.slice(0, 10) || '');
+      setAuthor(book.author || '');
     }
   }, [book]);
 
@@ -56,6 +63,9 @@ function BookEdit({ books, setBooks }) {
       title,
       summary,
       content,
+      author,
+      createdAt,
+      updatedAt: new Date().toISOString(),// 업데이트
       coverImage: {
         image_url: coverImage
       }
@@ -70,8 +80,34 @@ function BookEdit({ books, setBooks }) {
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <Typography variant="h4">✏️ 도서 수정</Typography>
+    <div
+    style={{
+      backgroundColor: '#f4f6f8',
+      minHeight: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: '2rem'
+    }}
+  >
+    <div
+      style={{
+        maxWidth: '600px',
+        width: '100%',
+        backgroundColor: '#fff',
+        padding: '2rem',
+        borderRadius: '8px',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+        display: 'flex',               
+        flexDirection: 'column',      
+        alignItems: 'center'  
+      }}
+    >
+      <Typography variant="h4"  sx={{
+    fontFamily: 'TmoneyRound',
+    fontWeight: 700,
+    mt: 2  
+  }}>✏️ 도서 수정</Typography>
 
       <TextField
         fullWidth
@@ -80,6 +116,24 @@ function BookEdit({ books, setBooks }) {
         onChange={(e) => setTitle(e.target.value)}
         sx={{ my: 2 }}
       />
+      <TextField
+        fullWidth
+        label="저자"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+        sx={{ my: 2 }}
+      />
+
+      <TextField
+        fullWidth
+        label="출판일"
+        type="date"
+        value={createdAt}
+        onChange={(e) => setCreatedAt(e.target.value)}
+        InputLabelProps={{ shrink: true }}
+        sx={{ my: 2 }}
+      />
+
       <TextField
         fullWidth
         label="요약"
@@ -123,6 +177,7 @@ function BookEdit({ books, setBooks }) {
         </div>
       )}
     </div>
+  </div>
   );
 }
 
