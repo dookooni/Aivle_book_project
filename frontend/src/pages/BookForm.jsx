@@ -90,7 +90,7 @@ function BookForm({ books, setBooks }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "dall-e-3",
+        model: "gpt-image-1",
         prompt: `요약을 보고서 요약 내용에 알맞은 책 표지 일러스트를 생성해줘.
                  일러스트는 복잡하지 않고 깔끔한 스타일로 그려줘.
                  요약: ${summary}`,
@@ -102,7 +102,11 @@ function BookForm({ books, setBooks }) {
     const data = await response.json();
     console.log("이미지 생성 응답:", data);
 
-    const imageUrl = data.data?.[0]?.url;
+    let imageUrl = data.data?.[0]?.url;
+    if (!imageUrl && data.data?.[0]?.b64_json) {
+      imageUrl = `data:image/png;base64,${data.data[0].b64_json}`
+    }
+
     if (imageUrl) {
       setCoverImage(imageUrl);
     } else {
