@@ -4,7 +4,8 @@ import {
   TextField,
   Button,
   Typography,
-  Stack
+  Stack,
+  Paper
 } from '@mui/material';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
@@ -85,7 +86,9 @@ function BookForm({ books, setBooks }) {
       },
       body: JSON.stringify({
         model: "dall-e-3",
-        prompt: `요약을 보고서 요약 내용에 알맞은 귀여운 책 표지 일러스트를 생성해줘. 요약약: ${summary}`,
+        prompt: `요약을 보고서 요약 내용에 알맞은 책 표지 일러스트를 생성해줘.
+                 일러스트는 [클래식 화풍, 디지털 화풍, 캐릭터, 특수 효과 중심] 이 네 가지 중 하나의 타입으로 골라서 그려줘.
+                 요약: ${summary}`,
         n: 1,
         size: "1024x1024", // 또는 "512x512"
       }),
@@ -148,14 +151,6 @@ function BookForm({ books, setBooks }) {
 
       <TextField
         fullWidth
-        label="요약"
-        value={summary}
-        onChange={(e) => setSummary(e.target.value)}
-        sx={{ my: 2 }}
-      />
-
-      <TextField
-        fullWidth
         multiline
         minRows={5}
         label="내용"
@@ -174,6 +169,23 @@ function BookForm({ books, setBooks }) {
       >
         {loading ? "요약 생성 중 ... " : "AI로 요약 생성"}
       </Button>
+
+      {/* <TextField
+        fullWidth
+        label="요약"
+        value={summary}
+        onChange={(e) => setSummary(e.target.value)}
+        sx={{ my: 2 }}
+      /> */}
+
+      <Paper elevation={3} sx={{ p: 2, my: 2, backgroundColor: '#f5f5f5' }}>
+        <Typography variant="subtitle1" color="textSecondary">
+          AI 요약
+        </Typography>
+        <Typography variant="body1" sx={{ mt: 1 }}>
+          {summary || "요약이 생성되면 여기에 표시됩니다."}
+        </Typography>
+      </Paper>
 
       {/* AI 이미지 생성 + 저장 버튼 */}
       <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
