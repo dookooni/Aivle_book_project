@@ -22,12 +22,13 @@ function BookForm({ books, setBooks }) {
 
   const [coverImage, setCoverImage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const nav = useNavigate();
 
-  const client = new OpenAI({ 
-    apiKey : process.env.REACT_APP_OPENAI_API_KEY,
-    dangerouslyAllowBrowser : true,
+  const client = new OpenAI({
+    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+    dangerouslyAllowBrowser: true
   });
 
   // AI 이미지 생성 버튼 클릭 시
