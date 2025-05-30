@@ -128,8 +128,34 @@ function BookEdit({ books, setBooks }) {
   // };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <Typography variant="h4">✏️ 도서 수정</Typography>
+    <div
+    style={{
+      backgroundColor: '#f4f6f8',
+      minHeight: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: '2rem'
+    }}
+  >
+    <div
+      style={{
+        maxWidth: '600px',
+        width: '100%',
+        backgroundColor: '#fff',
+        padding: '2rem',
+        borderRadius: '8px',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+        display: 'flex',               
+        flexDirection: 'column',      
+        alignItems: 'center'  
+      }}
+    >
+      <Typography variant="h4"  sx={{
+    fontFamily: 'TmoneyRound',
+    fontWeight: 700,
+    mt: 2  
+  }}>✏️ 도서 수정</Typography>
 
       <TextField
         fullWidth
@@ -198,6 +224,7 @@ function BookEdit({ books, setBooks }) {
         </div>
       )}
     </div>
+  </div>
   );
 }
 

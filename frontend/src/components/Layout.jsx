@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
       <Toolbar>
         <MenuBookIcon sx={{ mr: 1 }} />
         <Typography variant="h6">Book Manager</Typography>
-        <Box>
+        <Box sx={{ ml: 'auto' }}>
             <Button color="inherit" onClick={() => nav('/')}>
               홈
             </Button>
