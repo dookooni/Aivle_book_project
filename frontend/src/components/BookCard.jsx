@@ -16,14 +16,6 @@ function BookCard({ book }) {
         />
         <CardContent>
           <Typography variant="h6">{book.title}</Typography>
-          
-          <Typography variant="body2" color="text.secondary">
-            저자: {book.author}
-          </Typography> 
-          <Typography variant="body2" color="text.secondary">
-            출판일: {book.createdAt?.slice(0, 10)}
-          </Typography>
-
           <Typography variant="body2" color="text.secondary">
             {book.summary}
           </Typography>
