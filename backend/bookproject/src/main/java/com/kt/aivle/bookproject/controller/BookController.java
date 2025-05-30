@@ -59,7 +59,7 @@ public class BookController {
     @PutMapping("/{bookId}")
     public ResponseEntity<ApiResponse<BookDto.DetailResponse>> updateBook(
             @PathVariable Long bookId, 
-            @Valid @RequestBody BookDto.CreateRequest dto) {
+            @Valid @RequestBody BookDto.UpdateRequest dto) {
         
         BookDto.DetailResponse book = bookService.updateBook(bookId, dto);
         return ResponseEntity.ok(ApiResponse.success("도서 수정 성공", book));

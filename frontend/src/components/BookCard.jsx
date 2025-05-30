@@ -7,11 +7,11 @@ function BookCard({ book }) {
 
   return (
 <Card>
-  <CardActionArea onClick={() => nav(`/books/${book.bookId}`)}>
+  <CardActionArea onClick={() => nav(`/books/${book.id}`)}>
     <CardMedia
       component="img"
       height="200"
-      image={book.coverImage?.image_url || 'https://via.placeholder.com/150'}
+      image={book.coverImageUrl || 'https://via.placeholder.com/150'}
       alt="도서 표지"
     />
     <CardContent>

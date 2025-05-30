@@ -15,7 +15,7 @@ public interface BookService {
     //특정 ID 도서 삭제
     void deleteBook(Long id);
     //특정 ID 도서 업데이트
-    BookDto.DetailResponse updateBook(Long id, BookDto.CreateRequest dto);
+    BookDto.DetailResponse updateBook(Long id, BookDto.UpdateRequest dto);
     //특정 ID 도서 표지 이미지 URL 업데이트
     BookDto.DetailResponse updateCoverUrl(Long id, String newUrl);
 }

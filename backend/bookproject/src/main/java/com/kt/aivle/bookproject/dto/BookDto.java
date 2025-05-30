@@ -42,6 +42,29 @@ public class BookDto {
         }
     }
 
+    // 수정용 DTO (표지 이미지 URL 포함)
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpdateRequest {
+        
+        @NotBlank(message = "제목은 필수입니다")
+        @Size(max = 255, message = "제목은 최대 255자까지 입력 가능합니다")
+        private String title;
+        
+        @NotBlank(message = "내용은 필수입니다")
+        private String content;
+        
+        @Size(max = 255, message = "작가명은 최대 255자까지 입력 가능합니다")
+        private String author;
+        
+        @Size(max = 1000, message = "요약은 최대 1000자까지 입력 가능합니다")
+        private String summary;
+        
+        @Size(max = 2083, message = "URL은 최대 2083자까지 입력 가능합니다")
+        private String coverImageUrl;
+    }
+
     @Getter
     @Builder
     @NoArgsConstructor
