@@ -87,7 +87,7 @@ function BookForm({ books, setBooks }) {
       body: JSON.stringify({
         model: "dall-e-3",
         prompt: `요약을 보고서 요약 내용에 알맞은 책 표지 일러스트를 생성해줘.
-                 일러스트는 [클래식 화풍, 디지털 화풍, 캐릭터, 특수 효과 중심] 이 네 가지 중 하나의 타입으로 골라서 그려줘.
+                 일러스트는 복잡하지 않고 깔끔한 스타일로 그려줘.
                  요약: ${summary}`,
         n: 1,
         size: "1024x1024", // 또는 "512x512"
