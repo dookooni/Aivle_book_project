@@ -12,6 +12,11 @@ function BookForm({ books, setBooks }) {
   const [title, setTitle] = useState('');
   const [summary, setSummary] = useState('');
   const [content, setContent] = useState('');
+
+  const [author, setAuthor] = useState(''); //저자 추가
+  const [createdAt, setCreatedAt] = useState('');
+  
+
   const [coverImage, setCoverImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -44,6 +49,9 @@ function BookForm({ books, setBooks }) {
       title,
       summary,
       content,
+      author,
+      createdAt,
+      updatedAt: new Date().toISOString(),
       coverImage: {
         image_url: coverImage || 'https://via.placeholder.com/150'
       }
@@ -62,6 +70,24 @@ function BookForm({ books, setBooks }) {
         label="제목"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        sx={{ my: 2 }}
+      />
+      
+      <TextField
+        fullWidth
+        label="저자"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+        sx={{ my: 2 }}
+      />
+
+      <TextField
+        fullWidth
+        label="출판일"
+        type="date"
+        value={createdAt}
+        onChange={(e) => setCreatedAt(e.target.value)}
+        InputLabelProps={{ shrink: true }}
         sx={{ my: 2 }}
       />
 

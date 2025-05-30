@@ -23,6 +23,15 @@ function BookDetail({ books, setBooks }) {
   return (
     <div style={{ padding: '2rem' }}>
       <Typography variant="h4">{book.title}</Typography>
+
+      <Typography variant="h6" sx={{ mt: 2 }}>저자</Typography>
+      <Typography>{book.author}</Typography>
+      <Typography variant="h6" sx={{ mt: 2 }}>출판일</Typography>
+      <Typography>{book.createdAt?.slice(0, 10)}</Typography>
+
+      <Typography variant="h6" sx={{ mt: 2 }}>수정일</Typography>
+      <Typography>{book.updatedAt?.slice(0, 10)}</Typography>
+      {/* 저자,출판일,수정일 추가   */}
       <img
         src={book.coverImage?.image_url || 'https://via.placeholder.com/150'}
         alt="커버 이미지"

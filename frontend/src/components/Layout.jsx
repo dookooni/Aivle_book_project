@@ -1,4 +1,5 @@
 import { AppBar, Toolbar, Typography, Container, Button, Box } from '@mui/material';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { useNavigate } from 'react-router-dom';
 
 const Layout = ({ children }) => {
@@ -8,6 +9,7 @@ const Layout = ({ children }) => {
   <>
     <AppBar position="static">
       <Toolbar>
+        <MenuBookIcon sx={{ mr: 1 }} />
         <Typography variant="h6">Book Manager</Typography>
         <Box>
             <Button color="inherit" onClick={() => nav('/')}>
