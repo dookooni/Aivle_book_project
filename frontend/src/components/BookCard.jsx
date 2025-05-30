@@ -15,8 +15,18 @@ function BookCard({ book }) {
           alt="도서 표지"
         />
         <CardContent>
-          <Typography variant="h6">{book.title}</Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="h6"
+          gutterBottom
+          sx={{
+            fontFamily: 'TmoneyRound',
+            fontWeight: 700
+          }}>{book.title}</Typography>
+          <Typography variant="body2"
+          color="textSecondary"
+          sx={{
+            fontFamily: 'TmoneyRound',
+            fontWeight: 400
+          }}>
             {book.summary}
           </Typography>
         </CardContent>
