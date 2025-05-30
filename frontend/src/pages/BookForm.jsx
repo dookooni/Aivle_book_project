@@ -8,6 +8,8 @@ import {
 } from '@mui/material';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
+import { Configuration, OpenAIApi } from 'openai';
+
 function BookForm({ books, setBooks }) {
   const [title, setTitle] = useState('');
   const [summary, setSummary] = useState('');
@@ -16,6 +18,11 @@ function BookForm({ books, setBooks }) {
   const [loading, setLoading] = useState(false);
 
   const nav = useNavigate();
+
+  const configuration = new Configuration({
+    apiKey : process.env.REACT_APP_OPENAI_API_KEY,
+  })
+  const openai = new OpenAIApi(configuration);
 
   // AI 이미지 생성 버튼 클릭 시
   const handleGenerateImage = async () => {
