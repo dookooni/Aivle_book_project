@@ -25,7 +25,6 @@ function BookEdit({ books, setBooks }) {
   
   const [author, setAuthor] = useState('');//저자
   const [createdAt, setCreatedAt] = useState('');//출판일
-  const [updatedAt, setUpdatedAt] = useState('');//업데이트 날짜
 
 
 //기존도서 불러오기

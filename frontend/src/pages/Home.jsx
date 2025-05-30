@@ -8,7 +8,20 @@ import { fetchBooks } from '../api/bookApi'; //axios 연결
 
 function Home({ books }) {
   const nav = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+  fetchBooks()
+    .then((res) => setBooks(res.data))
+    .catch((err) => {
+      console.error('도서 목록 조회 실패:', err);
+      alert('도서 목록을 불러오는 데 실패했습니다.');
+    });
+  }, []);
+  
   return (
     <div
       style={{
