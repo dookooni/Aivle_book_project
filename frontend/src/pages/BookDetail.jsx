@@ -2,21 +2,49 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { Typography, Button, Stack } from '@mui/material';
 
+import { useEffect, useState } from 'react';
+import { fetchBook, deleteBook } from '../api/bookApi';
+
 function BookDetail({ books, setBooks }) {
   const { id } = useParams();
   const nav = useNavigate();
 
-  const book = books.find((b) => b.bookId.toString() === id);
-
+  //const book = books.find((b) => b.bookId.toString() === id);
+  const [book, setBook] = useState(null);
+  const [loading, setLoading] = useState(true);
+   useEffect(() => {
+    fetchBook(id)
+      .then((res) => {
+        setBook(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('도서 조회 실패:', err);
+        alert('도서를 불러오는 데 실패했습니다.');
+        nav('/');
+      });
+  }, [id, nav]);
   if (!book) {
     return <Typography>해당 도서를 찾을 수 없습니다.</Typography>;
   }
 
-  const handleDelete = () => {
+  // const handleDelete = () => {
+  //   if (window.confirm('정말 삭제하시겠습니까?')) {
+  //     const updated = books.filter((b) => b.bookId.toString() !== id);
+  //     setBooks(updated);
+  //     nav('/');
+  //   }
+  // };
+    const handleDelete = async () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      const updated = books.filter((b) => b.bookId.toString() !== id);
-      setBooks(updated);
-      nav('/');
+      try {
+        await deleteBook(id);
+        alert('도서가 삭제되었습니다.');
+        nav('/');
+      } catch (err) {
+        console.error('삭제 실패:', err);
+        alert('삭제 중 오류가 발생했습니다.');
+      }
     }
   };
 

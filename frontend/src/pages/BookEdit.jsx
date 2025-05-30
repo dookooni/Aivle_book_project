@@ -9,12 +9,13 @@ import {
 } from '@mui/material';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { useState, useEffect } from 'react';
+import { fetchBook, updateBook } from '../api/bookApi'; 
 
 function BookEdit({ books, setBooks }) {
   const { id } = useParams();
   const nav = useNavigate();
 
-  const book = books.find((b) => b.bookId.toString() === id);
+  //const book = books.find((b) => b.bookId.toString() === id);
 
   const [title, setTitle] = useState('');
   const [summary, setSummary] = useState('');
@@ -27,18 +28,38 @@ function BookEdit({ books, setBooks }) {
   const [updatedAt, setUpdatedAt] = useState('');//업데이트 날짜
 
 
+//기존도서 불러오기
   useEffect(() => {
-    if (book) {
-      setTitle(book.title);
-      setSummary(book.summary);
-      setContent(book.content);
-      setCoverImage(book.coverImage?.image_url || '');
-      setCreatedAt(book.createdAt?.slice(0, 10) || '');
-      setAuthor(book.author || '');
-    }
-  }, [book]);
+    fetchBook(id)
+      .then((res) => {
+        const book = res.data;
+        setTitle(book.title);
+        setSummary(book.summary);
+        setContent(book.content);
+        setAuthor(book.author);
+        setCreatedAt(book.created_at?.slice(0, 10) || '');
+        setCoverImage(book.coverImage?.image_url || '');
+      })
+      .catch((err) => {
+        console.error('도서 불러오기 실패:', err);
+        alert('도서를 불러오는 중 오류가 발생했습니다.');
+        nav('/');
+      });
+  }, [id, nav]);
 
-  if (!book) return <Typography>도서를 찾을 수 없습니다.</Typography>;
+
+  // useEffect(() => {
+  //   if (book) {
+  //     setTitle(book.title);
+  //     setSummary(book.summary);
+  //     setContent(book.content);
+  //     setCoverImage(book.coverImage?.image_url || '');
+  //     setCreatedAt(book.createdAt?.slice(0, 10) || '');
+  //     setAuthor(book.author || '');
+  //   }
+  // }, [book]);
+
+  // if (!book) return <Typography>도서를 찾을 수 없습니다.</Typography>;
 
   const handleGenerateImage = () => {
     if (!summary) {
@@ -57,27 +78,54 @@ function BookEdit({ books, setBooks }) {
     }, 1500);
   };
 
-  const handleSave = () => {
-    const updatedBook = {
-      ...book,
-      title,
-      summary,
-      content,
-      author,
-      createdAt,
-      updatedAt: new Date().toISOString(),// 업데이트
-      coverImage: {
-        image_url: coverImage
-      }
-    };
+  const handleSave = async () => {
+    if (!title || !summary || !content || !author || !createdAt) {
+      alert('모든 필드를 입력해주세요.');
+      return;
+    }
 
-    const newBooks = books.map((b) =>
-      b.bookId.toString() === id ? updatedBook : b
-    );
-
-    setBooks(newBooks);
-    nav(`/books/${id}`);
+    try {
+      const updatedBook = {
+        title,
+        summary,
+        content,
+        author,
+        created_at: createdAt,
+        updatedAt: new Date().toISOString(),
+        coverImage: {
+          image_url: coverImage
+        }
+      };
+      await updateBook(id, updatedBook);
+      alert('수정이 완료되었습니다.');
+      nav(`/books/${id}`);
+    } catch (err) {
+      console.error('도서 수정 실패:', err);
+      alert('수정 중 오류가 발생했습니다.');
+    }
   };
+
+  // const handleSave = () => {
+  //   const updatedBook = {
+  //     ...book,
+  //     title,
+  //     summary,
+  //     content,
+  //     author,
+  //     createdAt,
+  //     updatedAt: new Date().toISOString(),// 업데이트
+  //     coverImage: {
+  //       image_url: coverImage
+  //     }
+  //   };
+
+  //   const newBooks = books.map((b) =>
+  //     b.bookId.toString() === id ? updatedBook : b
+  //   );
+
+  //   setBooks(newBooks);
+  //   nav(`/books/${id}`);
+  // };
 
   return (
     <div style={{ padding: '2rem' }}>
@@ -104,7 +152,6 @@ function BookEdit({ books, setBooks }) {
         type="date"
         value={createdAt}
         onChange={(e) => setCreatedAt(e.target.value)}
-        InputLabelProps={{ shrink: true }}
         sx={{ my: 2 }}
       />
 

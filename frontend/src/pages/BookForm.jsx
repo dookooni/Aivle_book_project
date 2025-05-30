@@ -8,6 +8,9 @@ import {
 } from '@mui/material';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
+import { createBook } from '../api/bookApi';
+
+
 function BookForm({ books, setBooks }) {
   const [title, setTitle] = useState('');
   const [summary, setSummary] = useState('');
@@ -42,24 +45,34 @@ function BookForm({ books, setBooks }) {
     }, 1500);
   };
 
-  // 저장하기 버튼 클릭 시
-  const handleSubmit = () => {
-    const newBook = {
-      bookId: Date.now(), // 임시 고유 ID
-      title,
-      summary,
-      content,
-      author,
-      createdAt,
-      updatedAt: new Date().toISOString(),
-      coverImage: {
-        image_url: coverImage || 'https://via.placeholder.com/150'
+  // 저장하기 버튼 클릭 시 axios 연결결
+    const handleSubmit = async () => {
+      if (!title || !summary || !content || !author || !createdAt) {
+        alert('모든 필드를 입력해주세요.');
+        return;
       }
-    };
 
-    setBooks([newBook, ...books]); // 리스트에 추가
-    nav('/'); // 메인 페이지로 이동
-  };
+      try {
+        const newBook = {
+          title,
+          summary,
+          content,
+          author,
+          created_at: createdAt,
+          updatedAt: new Date().toISOString(),
+          coverImage: {
+            image_url: coverImage || 'https://via.placeholder.com/150'
+          }
+        };
+
+        const res = await createBook(newBook);
+        alert('도서가 등록되었습니다!');
+        nav('/');
+      }catch (err) {
+        console.error('도서 등록 실패:', err);
+        alert('등록 중 오류가 발생했습니다.');
+      }
+      };
 
   return (
     <div style={{ padding: '2rem' }}>

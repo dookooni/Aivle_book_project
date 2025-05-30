@@ -3,8 +3,27 @@ import { Grid, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import BookCard from '../components/BookCard';
 
+import { useState, useEffect } from 'react';
+import { fetchBooks } from '../api/bookApi'; //axios 연결
+
 function Home({ books }) {
   const nav = useNavigate();
+  
+  //연결
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    fetchBooks()
+      .then((res) => {
+        setBooks(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('도서 목록 불러오기 실패:', err);
+        setLoading(false);
+      });
+  }, []);
+
 
   return (
     <div style={{ padding: '2rem' }}>
