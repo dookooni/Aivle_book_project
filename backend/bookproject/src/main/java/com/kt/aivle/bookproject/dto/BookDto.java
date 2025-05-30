@@ -74,4 +74,42 @@ public class BookDto {
                     .build();
         }
     }
+
+    // 목록 조회용 DTO (간단한 정보만 포함)
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ListResponse {
+        
+        private Long id;
+        private String title;
+        private String author;
+        private String summary;
+        private String coverImageUrl;
+        
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+        private LocalDateTime createdAt;
+        
+        public static ListResponse fromEntity(Book book) {
+            return ListResponse.builder()
+                    .id(book.getId())
+                    .title(book.getTitle())
+                    .author(book.getAuthor())
+                    .summary(book.getSummary())
+                    .coverImageUrl(book.getCoverImageUrl())
+                    .createdAt(book.getCreatedAt())
+                    .build();
+        }
+    }
+
+    // 표지 이미지 URL 업데이트용 DTO
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CoverUrlRequest {
+        
+        @Size(max = 2083, message = "URL은 최대 2083자까지 입력 가능합니다")
+        private String coverImageUrl;
+    }
 } 
