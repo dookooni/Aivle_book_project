@@ -48,13 +48,13 @@ function Home({ books }) {
             등록된 도서가 없습니다.
           </Typography>
         ) : (
-          <Grid container spacing={3} sx={{ mb: 4 , mt: 2 }}>
-            {books.map((book) => (
-              <Grid item xs={12} sm={6} md={4} key={book.bookId}>
-                <BookCard book={book} />
-              </Grid>
-            ))}
-          </Grid>
+            <Grid container spacing={3} sx={{ mt: 2 }}>
+              {books.map((book) => (
+                <Grid item xs={12} sm={6} md={4} key={book.bookId}>
+                  <BookCard book={book} />
+                </Grid>
+              ))}
+            </Grid>
         )}
 
         <Button
