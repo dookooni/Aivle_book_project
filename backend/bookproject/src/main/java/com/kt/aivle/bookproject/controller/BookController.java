@@ -68,7 +68,7 @@ public class BookController {
     /**
      * 특정 도서 표지 이미지 URL 업데이트
      */
-    @PatchMapping("/{bookId}/cover")
+    @PutMapping("/{bookId}/cover-url")
     public ResponseEntity<ApiResponse<BookDto.DetailResponse>> updateCoverUrl(
             @PathVariable Long bookId, 
             @Valid @RequestBody BookDto.CoverUrlRequest request) {

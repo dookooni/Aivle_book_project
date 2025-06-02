@@ -32,7 +32,7 @@ function BookForm({ books, setBooks }) {
     dangerouslyAllowBrowser: true
   });
 
-  // AI 이미지 생성 버튼 클릭 시
+  // AI 요약 생성 함수
   const handleGenerateSummary = async () => {
     if (!content) {
       alert('내용을 먼저 입력해주세요.');
@@ -40,40 +40,58 @@ function BookForm({ books, setBooks }) {
     }
 
     setLoading(true);
-    try{
-      const response = await fetch("https://api.openai.com/v1/responses", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "gpt-4.1",
-          input: `Please summarize the following text in 1-2 sentences:\n\n${content}`,
-        }),
-    });
+    try {
+      console.log('=== AI 요약 생성 시작 ===');
+      console.log('API Key 존재 여부:', !!process.env.REACT_APP_OPENAI_API_KEY);
 
-      const data = await response.json();
-      console.log("API 응답 :", data);
+      // OpenAI API 키가 있는 경우에만 실제 API 호출
+      if (process.env.REACT_APP_OPENAI_API_KEY) {
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [
+              {
+                role: "user",
+                content: `다음 글을 1~2문장으로 요약해주세요:\n\n${content}`
+              }
+            ],
+            max_tokens: 100,
+          }),
+        });
 
-      const aiSummary = data.output?.[0]?.content?.[0]?.text?.trim() || "요약 생성 실패";
-      setSummary(aiSummary);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+        }
+
+        const data = await response.json();
+        console.log("요약 생성 응답:", data);
+
+        const aiSummary = data.choices?.[0]?.message?.content?.trim() || "요약 생성 실패";
+        setSummary(aiSummary);
+        alert("AI 요약이 성공적으로 생성되었습니다!");
+      } else {
+        throw new Error("API 키 없음");
+      }
     } catch (error) {
-      console.error('Summary generation error:', error);
-      alert('요약 생성 중 오류가 발생했습니다.');
+      console.error('요약 생성 중 오류:', error);
+      
+      // 실패시 더미 요약 생성
+      const dummySummary = content.length > 100 ? content.substring(0, 100) + '...' : content;
+      setSummary(dummySummary);
+      
+      const errorMsg = error.message.includes('API 키') 
+        ? "OpenAI API 키를 확인해주세요. 현재는 텍스트 앞부분을 요약으로 사용했습니다."
+        : `AI 요약 생성 실패: ${error.message}\n텍스트 앞부분을 요약으로 사용했습니다.`;
+      
+      alert(errorMsg);
     } finally {
       setLoading(false);
     }
-
-    // 👇 여기서 실제 백엔드로 요청을 보내면 됩니다
-    // 지금은 요약 텍스트로 임시 이미지 생성
-    // setTimeout(() => {
-    //   const dummyUrl = `https://via.placeholder.com/300x400.png?text=${encodeURIComponent(
-    //     summary.slice(0, 10)
-    //   )}`;
-    //   setCoverImage(dummyUrl);
-    //   setLoading(false);
-    // }, 1500);
   };
 
   const handleGenerateImage = async () => {

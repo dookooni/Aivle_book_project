@@ -23,7 +23,7 @@ export const updateBook = (id, data) => api.put(`/books/${id}`, data);
 
 // 표지 이미지 URL 업데이트
 export const updateBookCover = (id, coverImageUrl) => 
-  api.patch(`/books/${id}/cover`, { coverImageUrl });
+  api.put(`/books/${id}/cover-url`, { coverImageUrl });
 
 // 도서 삭제
 export const deleteBook = (id) => api.delete(`/books/${id}`);
