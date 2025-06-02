@@ -21,7 +21,7 @@
 - **UI Library**: Material-UI (@mui/material)
 - **HTTP Client**: Axios
 - **Package Manager**: Yarn
-- 
+
 ### Backend
 - **Framework**: Spring Boot 3.5.0
 - **Language**: Java 17
@@ -100,5 +100,4 @@ Aivle_book_project/
   }
 }
 ```
-
 </div>
