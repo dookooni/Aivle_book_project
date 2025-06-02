@@ -78,7 +78,7 @@ public class BookServiceImpl implements BookService {
      */
     @Override
     @Transactional // 쓰기 작업이므로 트랜잭션 어노테이션 추가
-    public BookDto.DetailResponse updateBook(Long id, BookDto.CreateRequest dto) {
+    public BookDto.DetailResponse updateBook(Long id, BookDto.UpdateRequest dto) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("ID가 " + id + "인 도서를 찾을 수 없습니다."));
         
@@ -87,6 +87,11 @@ public class BookServiceImpl implements BookService {
         book.setContent(dto.getContent());
         book.setAuthor(dto.getAuthor());
         book.setSummary(dto.getSummary());
+        
+        // 표지 이미지 URL도 함께 업데이트
+        if (dto.getCoverImageUrl() != null) {
+            book.setCoverImageUrl(dto.getCoverImageUrl());
+        }
         
         Book updatedBook = bookRepository.save(book);
         return BookDto.DetailResponse.fromEntity(updatedBook);
