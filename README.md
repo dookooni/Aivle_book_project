@@ -10,7 +10,7 @@
 
 ## 📺 Demo 영상
 
-![AI Book Manager 데모](./Aivle_book_project/demo.gif)
+![AI Book Manager 데모](Demo.gif)
 *AI 요약 생성 -> AI 표지 생성 -> CRUD 기능 전체 시연*
 
 ## 🛠️ 기술 스택
