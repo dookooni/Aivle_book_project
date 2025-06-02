@@ -12,7 +12,6 @@ function BookCard({ book }) {
         onClick={() => nav(`/books/${book.id}`)}
         sx={{ display: 'flex', width: '100%' }}
       >
-        {/* 왼쪽: 이미지 */}
         <CardMedia
           component="img"
           image={book.coverImageUrl || 'https://via.placeholder.com/150'}
@@ -27,7 +26,6 @@ function BookCard({ book }) {
           }}
         />
 
-        {/* 오른쪽: 정보 */}
         <CardContent sx={{ display: 'flex', flexDirection: 'column', ml: 2, flex: 1 }}>
           <Typography variant="h6" sx={{ fontFamily: 'TmoneyRound', fontWeight: 700 }}>
             {book.title}
