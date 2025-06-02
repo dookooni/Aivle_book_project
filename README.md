@@ -10,13 +10,8 @@
 
 ## 📺 Demo 영상
 
-### 🚀 AI 기능 시연 
-![AI 기능 데모](./demo/ai-features.gif)
-*AI 요약 생성 → AI 표지 생성 → 도서 저장 과정*
-
-### 📚 도서 관리 기능
-![CRUD 기능 데모](./demo/crud-demo.gif)
-*도서 목록 → 상세보기 → 편집 → 삭제*
+![AI Book Manager 데모](./demo.gif)
+*AI 요약 생성 -> AI 표지 생성 -> CRUD 기능 전체 시연*
 
 ## 🛠️ 기술 스택
 
