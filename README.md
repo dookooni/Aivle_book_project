@@ -8,22 +8,32 @@
 [![OpenAI](https://img.shields.io/badge/OpenAI-GPT--3.5--turbo-orange.svg)](https://openai.com/)
 [![Java](https://img.shields.io/badge/Java-17-red.svg)](https://openjdk.java.net/)
 
-## 🏗️ 기술 스택
+## 📺 Demo 영상
 
-### Backend
-- **Framework**: Spring Boot 3.5.0
-- **Language**: Java 17
-- **Database**: H2 (개발용), JPA/Hibernate
-- **Build Tool**: Gradle
-- **API**: RESTful API, CORS 설정
+### 🚀 AI 기능 시연 
+![AI 기능 데모](./demo/ai-features.gif)
+*AI 요약 생성 → AI 표지 생성 → 도서 저장 과정*
+
+### 📚 도서 관리 기능
+![CRUD 기능 데모](./demo/crud-demo.gif)
+*도서 목록 → 상세보기 → 편집 → 삭제*
+
+## 🛠️ 기술 스택
 
 ### Frontend
 - **Framework**: React 18.x (Create React App)
 - **UI Library**: Material-UI (@mui/material)
 - **HTTP Client**: Axios
 - **Package Manager**: Yarn
-
+- 
+### Backend
+- **Framework**: Spring Boot 3.5.0
+- **Language**: Java 17
+- **Database**: H2 (개발용), JPA/Hibernate
+- **Build Tool**: Gradle
+- **API**: RESTful API, CORS 설정
 ### AI Integration
+
 - **OpenAI API**: GPT-3.5-turbo, DALL-E-3
 - **기능**: 텍스트 요약, 이미지 생성
   
@@ -94,19 +104,5 @@ Aivle_book_project/
   }
 }
 ```
-## 📸 스크린샷
-
-### 메인 화면
-- 도서 목록 페이지
-- 깔끔한 Material-UI 디자인
-
-### 도서 등록 화면
-- AI 요약 생성 버튼
-- AI 표지 생성 기능
-- 실시간 미리보기
-
-### AI 생성 결과
-- 자동 생성된 요약문
-- DALL-E-3 생성 표지 이미지
 
 </div>
